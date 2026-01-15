@@ -10,6 +10,7 @@ Este proyecto incluye ejemplos de:
 - **Teoremas con tácticas**: prueba de que el cuadrado de cualquier entero es no negativo
 - **Funciones**: definiciones y evaluaciones simples
 - **Programa ejecutable**: un `main` que imprime resultados
+- **Zero-Knowledge Proofs**: conceptos básicos de ZKP modelados en Lean
 
 ## Requisitos
 
@@ -42,6 +43,7 @@ lake build MiProyectoLean
 ```
 .
 ├── Main.lean              # Teoremas, funciones y programa principal
+├── ZKBasics.lean          # Ejemplos de Zero-Knowledge Proofs
 ├── MiProyectoLean/
 │   └── Basic.lean         # Módulo básico
 ├── lakefile.toml          # Configuración del proyecto
@@ -67,6 +69,33 @@ theorem cuadrado_positivo (x : Int) : x^2 ≥ 0 := by
 ```lean
 def duplicar (n : Nat) : Nat := n + n
 #eval duplicar 5  -- Output: 10
+```
+
+## Zero-Knowledge Proofs (ZKBasics.lean)
+
+Ejemplos didácticos que modelan conceptos fundamentales de ZKP:
+
+| Ejemplo | Concepto |
+|---------|----------|
+| Raíz cuadrada | Probar conocimiento de un valor sin revelarlo |
+| Commitment | Comprometerse a un valor y verificarlo después |
+| Range Proof | Probar que un número está en un rango |
+| Coloreo de grafo | Problema NP-completo clásico de ZKP |
+| Protocolo ZK | Estructura de un protocolo interactivo |
+
+### Ejemplo: Probar conocimiento sin revelar
+```lean
+-- El tipo solo dice que EXISTE una raíz, no cuál es
+theorem raiz_de_25_existe : conoceRaiz 25 :=
+  ⟨5, rfl⟩  -- Solo la prueba conoce el valor 5
+```
+
+### Ejemplo: Commitment scheme
+```lean
+def crearCommitment (secret : Nat) (nonce : Nat) : Commitment :=
+  { hash := simpleHash secret nonce }
+
+#eval crearCommitment 42 777  -- hash = 42777
 ```
 
 ## Recursos para aprender Lean

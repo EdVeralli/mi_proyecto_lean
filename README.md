@@ -43,7 +43,7 @@ lake build MiProyectoLean
 ```
 .
 ├── Main.lean              # Teoremas, funciones y programa principal
-├── ZKBasics.lean          # Ejemplos de Zero-Knowledge Proofs
+├── ZKProof_Realista.lean  # Protocolo ZKP de 3-coloreo de grafos
 ├── MiProyectoLean/
 │   └── Basic.lean         # Módulo básico
 ├── lakefile.toml          # Configuración del proyecto
@@ -71,31 +71,45 @@ def duplicar (n : Nat) : Nat := n + n
 #eval duplicar 5  -- Output: 10
 ```
 
-## Zero-Knowledge Proofs (ZKBasics.lean)
+## Zero-Knowledge Proofs (ZKProof_Realista.lean)
 
-Ejemplos didácticos que modelan conceptos fundamentales de ZKP:
+Implementación del protocolo clásico de **3-coloreo de grafos**, uno de los ejemplos más didácticos de ZKP.
 
-| Ejemplo | Concepto |
-|---------|----------|
-| Raíz cuadrada | Probar conocimiento de un valor sin revelarlo |
-| Commitment | Comprometerse a un valor y verificarlo después |
-| Range Proof | Probar que un número está en un rango |
-| Coloreo de grafo | Problema NP-completo clásico de ZKP |
-| Protocolo ZK | Estructura de un protocolo interactivo |
+### ¿Por qué es Zero-Knowledge?
 
-### Ejemplo: Probar conocimiento sin revelar
-```lean
--- El tipo solo dice que EXISTE una raíz, no cuál es
-theorem raiz_de_25_existe : conoceRaiz 25 :=
-  ⟨5, rfl⟩  -- Solo la prueba conoce el valor 5
+El Prover demuestra que conoce un coloreo válido **sin revelar los colores**:
+
+1. **Permutación aleatoria**: Cada ronda usa colores permutados
+2. **Commitments**: Solo se revelan hashes, no los colores
+3. **Revelación parcial**: Solo 2 de N colores por ronda
+4. **No reconstruible**: El Verifier no puede inferir el coloreo original
+
+### Protocolo interactivo
+
+```
+┌─────────┐                    ┌──────────┐
+│ PROVER  │                    │ VERIFIER │
+│(secreto)│                    │          │
+└────┬────┘                    └────┬─────┘
+     │  1. Commitments (hashes)     │
+     │ ──────────────────────────>  │
+     │                              │
+     │  2. Challenge (arista)       │
+     │ <──────────────────────────  │
+     │                              │
+     │  3. Response (2 colores)     │
+     │ ──────────────────────────>  │
+     │                              │
+     │  4. Verificación ✓           │
 ```
 
-### Ejemplo: Commitment scheme
+### Ejemplo de código
 ```lean
-def crearCommitment (secret : Nat) (nonce : Nat) : Commitment :=
-  { hash := simpleHash secret nonce }
+-- Verificar que el coloreo es válido
+#eval isValidColoring triangleGraph secretColoring  -- true
 
-#eval crearCommitment 42 777  -- hash = 42777
+-- El Verifier solo ve: 2 colores diferentes en 1 arista
+-- No puede reconstruir el coloreo completo
 ```
 
 ## Recursos para aprender Lean

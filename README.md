@@ -75,6 +75,8 @@ def duplicar (n : Nat) : Nat := n + n
 
 Implementación del protocolo clásico de **3-coloreo de grafos**, uno de los ejemplos más didácticos de ZKP.
 
+> Ver [protocolo_3_coloreo_zero_knowledge.md](protocolo_3_coloreo_zero_knowledge.md) para la explicación teórica completa.
+
 ### ¿Por qué es Zero-Knowledge?
 
 El Prover demuestra que conoce un coloreo válido **sin revelar los colores**:

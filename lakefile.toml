@@ -1,0 +1,10 @@
+name = "mi_proyecto_lean"
+version = "0.1.0"
+defaultTargets = ["mi_proyecto_lean"]
+
+[[lean_lib]]
+name = "MiProyectoLean"
+
+[[lean_exe]]
+name = "mi_proyecto_lean"
+root = "Main"

@@ -75,7 +75,9 @@ def duplicar (n : Nat) : Nat := n + n
 
 Implementación del protocolo clásico de **3-coloreo de grafos**, uno de los ejemplos más didácticos de ZKP.
 
-> Ver [protocolo_3_coloreo_zero_knowledge.md](protocolo_3_coloreo_zero_knowledge.md) para la explicación teórica completa.
+> **Documentación:**
+> - [protocolo_3_coloreo_zero_knowledge.md](protocolo_3_coloreo_zero_knowledge.md) - Explicación teórica del protocolo
+> - [DEF_vs_THEOREM_explicacion.md](DEF_vs_THEOREM_explicacion.md) - Diferencia entre `def` y `theorem` en Lean
 
 ### ¿Por qué es Zero-Knowledge?
 
